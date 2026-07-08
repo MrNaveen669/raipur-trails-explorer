@@ -179,14 +179,13 @@ const seeds: Seed[] = [
     isHiddenGem: true, isFeatured: true, coords: { lat: 22.0000, lng: 81.2500 } },
 ];
 
-export const places: Place[] = seeds.map((s, i) => ({
-  ...s,
-  id: `${s.category}-${s.seed}`,
+export const places: Place[] = seeds.map(({ seed, ...rest }) => ({
+  ...rest,
+  id: `${rest.category}-${seed}`,
   city: "Raipur",
-  cover: img(s.seed, 1000, 720),
-  gallery: gallery(s.seed),
-  seed: undefined as unknown as string,
-} as unknown as Place)).map(({ ...rest }) => rest);
+  cover: img(seed, 1000, 720),
+  gallery: gallery(seed),
+}));
 
 export const placeById = Object.fromEntries(places.map((p) => [p.id, p]));
 
