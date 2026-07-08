@@ -187,7 +187,7 @@ export const places: Place[] = seeds.map(({ seed, ...rest }) => ({
   gallery: gallery(seed),
 }));
 
-export const placeById = Object.fromEntries(places.map((p) => [p.id, p]));
+export const placeById: Record<string, Place> = Object.fromEntries(places.map((p) => [p.id, p]));
 
 export const placesByCategory = (slug: CategorySlug) => places.filter((p) => p.category === slug);
 export const trending = () => places.filter((p) => p.isTrending);
