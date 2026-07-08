@@ -36,7 +36,7 @@ export const Route = createFileRoute("/category/$slug")({
 });
 
 function CategoryScreen() {
-  const { cat } = Route.useLoaderData();
+  const { cat } = Route.useLoaderData() as { cat: import("@/lib/types").Category };
   const [view, setView] = useState<"grid" | "list">("grid");
   const [sort, setSort] = useState<"rating" | "distance">("rating");
   const navigate = useNavigate();
