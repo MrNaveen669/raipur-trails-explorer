@@ -9,17 +9,36 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SearchRouteImport } from './routes/search'
+import { Route as ReviewsRouteImport } from './routes/reviews'
+import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as HomeRouteImport } from './routes/home'
+import { Route as FavoritesRouteImport } from './routes/favorites'
 import { Route as ExploreRouteImport } from './routes/explore'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PlaceIdRouteImport } from './routes/place.$id'
 import { Route as CategorySlugRouteImport } from './routes/category.$slug'
 
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SearchRoute = SearchRouteImport.update({
   id: '/search',
   path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReviewsRoute = ReviewsRouteImport.update({
+  id: '/reviews',
+  path: '/reviews',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OnboardingRoute = OnboardingRouteImport.update({
@@ -30,6 +49,11 @@ const OnboardingRoute = OnboardingRouteImport.update({
 const HomeRoute = HomeRouteImport.update({
   id: '/home',
   path: '/home',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FavoritesRoute = FavoritesRouteImport.update({
+  id: '/favorites',
+  path: '/favorites',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ExploreRoute = ExploreRouteImport.update({
@@ -56,18 +80,26 @@ const CategorySlugRoute = CategorySlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/explore': typeof ExploreRoute
+  '/favorites': typeof FavoritesRoute
   '/home': typeof HomeRoute
   '/onboarding': typeof OnboardingRoute
+  '/profile': typeof ProfileRoute
+  '/reviews': typeof ReviewsRoute
   '/search': typeof SearchRoute
+  '/settings': typeof SettingsRoute
   '/category/$slug': typeof CategorySlugRoute
   '/place/$id': typeof PlaceIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/explore': typeof ExploreRoute
+  '/favorites': typeof FavoritesRoute
   '/home': typeof HomeRoute
   '/onboarding': typeof OnboardingRoute
+  '/profile': typeof ProfileRoute
+  '/reviews': typeof ReviewsRoute
   '/search': typeof SearchRoute
+  '/settings': typeof SettingsRoute
   '/category/$slug': typeof CategorySlugRoute
   '/place/$id': typeof PlaceIdRoute
 }
@@ -75,9 +107,13 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/explore': typeof ExploreRoute
+  '/favorites': typeof FavoritesRoute
   '/home': typeof HomeRoute
   '/onboarding': typeof OnboardingRoute
+  '/profile': typeof ProfileRoute
+  '/reviews': typeof ReviewsRoute
   '/search': typeof SearchRoute
+  '/settings': typeof SettingsRoute
   '/category/$slug': typeof CategorySlugRoute
   '/place/$id': typeof PlaceIdRoute
 }
@@ -86,27 +122,39 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/explore'
+    | '/favorites'
     | '/home'
     | '/onboarding'
+    | '/profile'
+    | '/reviews'
     | '/search'
+    | '/settings'
     | '/category/$slug'
     | '/place/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/explore'
+    | '/favorites'
     | '/home'
     | '/onboarding'
+    | '/profile'
+    | '/reviews'
     | '/search'
+    | '/settings'
     | '/category/$slug'
     | '/place/$id'
   id:
     | '__root__'
     | '/'
     | '/explore'
+    | '/favorites'
     | '/home'
     | '/onboarding'
+    | '/profile'
+    | '/reviews'
     | '/search'
+    | '/settings'
     | '/category/$slug'
     | '/place/$id'
   fileRoutesById: FileRoutesById
@@ -114,20 +162,45 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ExploreRoute: typeof ExploreRoute
+  FavoritesRoute: typeof FavoritesRoute
   HomeRoute: typeof HomeRoute
   OnboardingRoute: typeof OnboardingRoute
+  ProfileRoute: typeof ProfileRoute
+  ReviewsRoute: typeof ReviewsRoute
   SearchRoute: typeof SearchRoute
+  SettingsRoute: typeof SettingsRoute
   CategorySlugRoute: typeof CategorySlugRoute
   PlaceIdRoute: typeof PlaceIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/search': {
       id: '/search'
       path: '/search'
       fullPath: '/search'
       preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reviews': {
+      id: '/reviews'
+      path: '/reviews'
+      fullPath: '/reviews'
+      preLoaderRoute: typeof ReviewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/onboarding': {
@@ -142,6 +215,13 @@ declare module '@tanstack/react-router' {
       path: '/home'
       fullPath: '/home'
       preLoaderRoute: typeof HomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/favorites': {
+      id: '/favorites'
+      path: '/favorites'
+      fullPath: '/favorites'
+      preLoaderRoute: typeof FavoritesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/explore': {
@@ -178,9 +258,13 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ExploreRoute: ExploreRoute,
+  FavoritesRoute: FavoritesRoute,
   HomeRoute: HomeRoute,
   OnboardingRoute: OnboardingRoute,
+  ProfileRoute: ProfileRoute,
+  ReviewsRoute: ReviewsRoute,
   SearchRoute: SearchRoute,
+  SettingsRoute: SettingsRoute,
   CategorySlugRoute: CategorySlugRoute,
   PlaceIdRoute: PlaceIdRoute,
 }
