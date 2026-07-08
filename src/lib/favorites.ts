@@ -36,11 +36,13 @@ function subscribe(l: Listener) {
   return () => listeners.delete(l);
 }
 
+const EMPTY_SET: Set<string> = new Set();
+
 export function useFavorites() {
   const set = useSyncExternalStore(
     subscribe,
     () => get(),
-    () => new Set<string>() as Set<string>
+    () => EMPTY_SET,
   );
   return {
     ids: set,
