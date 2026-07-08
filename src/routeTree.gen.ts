@@ -14,6 +14,8 @@ import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as HomeRouteImport } from './routes/home'
 import { Route as ExploreRouteImport } from './routes/explore'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PlaceIdRouteImport } from './routes/place.$id'
+import { Route as CategorySlugRouteImport } from './routes/category.$slug'
 
 const SearchRoute = SearchRouteImport.update({
   id: '/search',
@@ -40,6 +42,16 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PlaceIdRoute = PlaceIdRouteImport.update({
+  id: '/place/$id',
+  path: '/place/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CategorySlugRoute = CategorySlugRouteImport.update({
+  id: '/category/$slug',
+  path: '/category/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -47,6 +59,8 @@ export interface FileRoutesByFullPath {
   '/home': typeof HomeRoute
   '/onboarding': typeof OnboardingRoute
   '/search': typeof SearchRoute
+  '/category/$slug': typeof CategorySlugRoute
+  '/place/$id': typeof PlaceIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +68,8 @@ export interface FileRoutesByTo {
   '/home': typeof HomeRoute
   '/onboarding': typeof OnboardingRoute
   '/search': typeof SearchRoute
+  '/category/$slug': typeof CategorySlugRoute
+  '/place/$id': typeof PlaceIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,13 +78,37 @@ export interface FileRoutesById {
   '/home': typeof HomeRoute
   '/onboarding': typeof OnboardingRoute
   '/search': typeof SearchRoute
+  '/category/$slug': typeof CategorySlugRoute
+  '/place/$id': typeof PlaceIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/explore' | '/home' | '/onboarding' | '/search'
+  fullPaths:
+    | '/'
+    | '/explore'
+    | '/home'
+    | '/onboarding'
+    | '/search'
+    | '/category/$slug'
+    | '/place/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/explore' | '/home' | '/onboarding' | '/search'
-  id: '__root__' | '/' | '/explore' | '/home' | '/onboarding' | '/search'
+  to:
+    | '/'
+    | '/explore'
+    | '/home'
+    | '/onboarding'
+    | '/search'
+    | '/category/$slug'
+    | '/place/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/explore'
+    | '/home'
+    | '/onboarding'
+    | '/search'
+    | '/category/$slug'
+    | '/place/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -77,6 +117,8 @@ export interface RootRouteChildren {
   HomeRoute: typeof HomeRoute
   OnboardingRoute: typeof OnboardingRoute
   SearchRoute: typeof SearchRoute
+  CategorySlugRoute: typeof CategorySlugRoute
+  PlaceIdRoute: typeof PlaceIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -116,6 +158,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/place/$id': {
+      id: '/place/$id'
+      path: '/place/$id'
+      fullPath: '/place/$id'
+      preLoaderRoute: typeof PlaceIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/category/$slug': {
+      id: '/category/$slug'
+      path: '/category/$slug'
+      fullPath: '/category/$slug'
+      preLoaderRoute: typeof CategorySlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -125,6 +181,8 @@ const rootRouteChildren: RootRouteChildren = {
   HomeRoute: HomeRoute,
   OnboardingRoute: OnboardingRoute,
   SearchRoute: SearchRoute,
+  CategorySlugRoute: CategorySlugRoute,
+  PlaceIdRoute: PlaceIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
