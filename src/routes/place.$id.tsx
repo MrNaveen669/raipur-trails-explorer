@@ -41,7 +41,7 @@ export const Route = createFileRoute("/place/$id")({
 });
 
 function PlaceDetail() {
-  const { place } = Route.useLoaderData();
+  const { place } = Route.useLoaderData() as { place: import("@/lib/types").Place };
   const [idx, setIdx] = useState(0);
   const navigate = useNavigate();
   const { has, toggle } = useFavorites();
