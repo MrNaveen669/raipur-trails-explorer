@@ -21,7 +21,7 @@ const controls = [
 ];
 
 function CallScreen() {
-  const navigate = useNavigate();
+  const endCall = () => window.history.back();
 
   return (
     <div className="dark mx-auto flex min-h-dvh w-full max-w-[480px] animate-fade-in flex-col justify-between bg-background text-foreground">
