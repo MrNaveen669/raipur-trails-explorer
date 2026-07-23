@@ -82,9 +82,7 @@ function CallScreen() {
         </div>
 
         <button
-          onClick={() => {
-            navigate({ to: -1 });
-          }}
+          onClick={endCall}
           aria-label="End Call"
           className="flex h-16 w-16 items-center justify-center rounded-full bg-destructive text-destructive-foreground shadow-[0_12px_32px_-8px_oklch(0.58_0.22_25/0.55)] transition-transform active:scale-95"
         >
