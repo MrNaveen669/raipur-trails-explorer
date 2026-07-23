@@ -19,6 +19,7 @@ import { Route as FavoritesRouteImport } from './routes/favorites'
 import { Route as ExploreRouteImport } from './routes/explore'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PlaceIdRouteImport } from './routes/place.$id'
+import { Route as DirectionsIdRouteImport } from './routes/directions.$id'
 import { Route as CategorySlugRouteImport } from './routes/category.$slug'
 
 const SettingsRoute = SettingsRouteImport.update({
@@ -71,6 +72,11 @@ const PlaceIdRoute = PlaceIdRouteImport.update({
   path: '/place/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DirectionsIdRoute = DirectionsIdRouteImport.update({
+  id: '/directions/$id',
+  path: '/directions/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CategorySlugRoute = CategorySlugRouteImport.update({
   id: '/category/$slug',
   path: '/category/$slug',
@@ -88,6 +94,7 @@ export interface FileRoutesByFullPath {
   '/search': typeof SearchRoute
   '/settings': typeof SettingsRoute
   '/category/$slug': typeof CategorySlugRoute
+  '/directions/$id': typeof DirectionsIdRoute
   '/place/$id': typeof PlaceIdRoute
 }
 export interface FileRoutesByTo {
@@ -101,6 +108,7 @@ export interface FileRoutesByTo {
   '/search': typeof SearchRoute
   '/settings': typeof SettingsRoute
   '/category/$slug': typeof CategorySlugRoute
+  '/directions/$id': typeof DirectionsIdRoute
   '/place/$id': typeof PlaceIdRoute
 }
 export interface FileRoutesById {
@@ -115,6 +123,7 @@ export interface FileRoutesById {
   '/search': typeof SearchRoute
   '/settings': typeof SettingsRoute
   '/category/$slug': typeof CategorySlugRoute
+  '/directions/$id': typeof DirectionsIdRoute
   '/place/$id': typeof PlaceIdRoute
 }
 export interface FileRouteTypes {
@@ -130,6 +139,7 @@ export interface FileRouteTypes {
     | '/search'
     | '/settings'
     | '/category/$slug'
+    | '/directions/$id'
     | '/place/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -143,6 +153,7 @@ export interface FileRouteTypes {
     | '/search'
     | '/settings'
     | '/category/$slug'
+    | '/directions/$id'
     | '/place/$id'
   id:
     | '__root__'
@@ -156,6 +167,7 @@ export interface FileRouteTypes {
     | '/search'
     | '/settings'
     | '/category/$slug'
+    | '/directions/$id'
     | '/place/$id'
   fileRoutesById: FileRoutesById
 }
@@ -170,6 +182,7 @@ export interface RootRouteChildren {
   SearchRoute: typeof SearchRoute
   SettingsRoute: typeof SettingsRoute
   CategorySlugRoute: typeof CategorySlugRoute
+  DirectionsIdRoute: typeof DirectionsIdRoute
   PlaceIdRoute: typeof PlaceIdRoute
 }
 
@@ -245,6 +258,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlaceIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/directions/$id': {
+      id: '/directions/$id'
+      path: '/directions/$id'
+      fullPath: '/directions/$id'
+      preLoaderRoute: typeof DirectionsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/category/$slug': {
       id: '/category/$slug'
       path: '/category/$slug'
@@ -266,6 +286,7 @@ const rootRouteChildren: RootRouteChildren = {
   SearchRoute: SearchRoute,
   SettingsRoute: SettingsRoute,
   CategorySlugRoute: CategorySlugRoute,
+  DirectionsIdRoute: DirectionsIdRoute,
   PlaceIdRoute: PlaceIdRoute,
 }
 export const routeTree = rootRouteImport

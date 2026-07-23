@@ -213,11 +213,12 @@ function PlaceDetail() {
             <MessageSquarePlus className="h-5 w-5" />
           </button>
           <button
-            onClick={() => toast.success("Launching directions")}
+            onClick={() => navigate({ to: "/directions/$id", params: { id: place.id } })}
             className="flex h-12 flex-1 items-center justify-center gap-2 rounded-2xl bg-primary text-sm font-semibold text-primary-foreground shadow-[var(--shadow-hero)]"
           >
             <Navigation className="h-5 w-5" /> Directions
           </button>
+
         </div>
       </div>
     </div>
