@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { Volume2, Mic, Grid3x3, Plus, Bluetooth, PhoneOff } from "lucide-react";
 
 export const Route = createFileRoute("/call")({
