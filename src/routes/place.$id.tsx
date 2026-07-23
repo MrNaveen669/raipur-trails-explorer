@@ -200,8 +200,9 @@ function PlaceDetail() {
             <Heart className={cn("h-5 w-5", active ? "fill-accent text-accent" : "text-foreground")} />
           </button>
           <button
+            onClick={() => navigate({ to: "/call" })}
             aria-label="Call"
-            className="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary"
+            className="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary transition-transform active:scale-95"
           >
             <Phone className="h-5 w-5" />
           </button>
