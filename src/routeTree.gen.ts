@@ -18,6 +18,7 @@ import { Route as HomeRouteImport } from './routes/home'
 import { Route as FavoritesRouteImport } from './routes/favorites'
 import { Route as ExploreRouteImport } from './routes/explore'
 import { Route as CallRouteImport } from './routes/call'
+import { Route as AdRouteImport } from './routes/ad'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PlaceIdRouteImport } from './routes/place.$id'
 import { Route as DirectionsIdRouteImport } from './routes/directions.$id'
@@ -69,6 +70,11 @@ const CallRoute = CallRouteImport.update({
   path: '/call',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdRoute = AdRouteImport.update({
+  id: '/ad',
+  path: '/ad',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -97,6 +103,7 @@ const PlaceIdDetailsRoute = PlaceIdDetailsRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/ad': typeof AdRoute
   '/call': typeof CallRoute
   '/explore': typeof ExploreRoute
   '/favorites': typeof FavoritesRoute
@@ -113,6 +120,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/ad': typeof AdRoute
   '/call': typeof CallRoute
   '/explore': typeof ExploreRoute
   '/favorites': typeof FavoritesRoute
@@ -130,6 +138,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/ad': typeof AdRoute
   '/call': typeof CallRoute
   '/explore': typeof ExploreRoute
   '/favorites': typeof FavoritesRoute
@@ -148,6 +157,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/ad'
     | '/call'
     | '/explore'
     | '/favorites'
@@ -164,6 +174,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/ad'
     | '/call'
     | '/explore'
     | '/favorites'
@@ -180,6 +191,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/ad'
     | '/call'
     | '/explore'
     | '/favorites'
@@ -197,6 +209,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdRoute: typeof AdRoute
   CallRoute: typeof CallRoute
   ExploreRoute: typeof ExploreRoute
   FavoritesRoute: typeof FavoritesRoute
@@ -276,6 +289,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CallRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ad': {
+      id: '/ad'
+      path: '/ad'
+      fullPath: '/ad'
+      preLoaderRoute: typeof AdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -327,6 +347,7 @@ const PlaceIdRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdRoute: AdRoute,
   CallRoute: CallRoute,
   ExploreRoute: ExploreRoute,
   FavoritesRoute: FavoritesRoute,

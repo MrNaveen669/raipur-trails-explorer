@@ -14,10 +14,13 @@ function Splash() {
   useEffect(() => {
     if (done === null) return;
     const t = setTimeout(() => {
-      navigate({ to: done ? "/home" : "/onboarding" });
+      const adShown = typeof window !== "undefined" && sessionStorage.getItem("cd:ad-shown") === "1";
+      const target = !done ? "/onboarding" : adShown ? "/home" : "/ad";
+      navigate({ to: target });
     }, 1400);
     return () => clearTimeout(t);
   }, [done, navigate]);
+
 
   return (
     <div className="relative min-h-dvh overflow-hidden bg-primary text-primary-foreground">
