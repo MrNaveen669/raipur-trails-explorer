@@ -40,10 +40,15 @@ function Onboarding() {
   const Icon = slide.Icon;
   const isLast = i === slides.length - 1;
 
+  const goHome = () => {
+    const adShown = typeof window !== "undefined" && sessionStorage.getItem("cd:ad-shown") === "1";
+    navigate({ to: adShown ? "/home" : "/ad" });
+  };
+
   const advance = () => {
     if (isLast) {
       complete();
-      navigate({ to: "/home" });
+      goHome();
     } else {
       setI(i + 1);
     }
@@ -53,11 +58,12 @@ function Onboarding() {
     <div className="flex min-h-dvh flex-col bg-background">
       <div className="flex items-center justify-end px-5 pt-5">
         <button
-          onClick={() => { complete(); navigate({ to: "/home" }); }}
+          onClick={() => { complete(); goHome(); }}
           className="text-sm font-semibold text-muted-foreground"
         >
           Skip
         </button>
+
       </div>
 
       <div key={i} className="flex flex-1 flex-col items-center justify-center px-8 text-center animate-slide-up-fade">
