@@ -134,6 +134,36 @@ function PlaceDetail() {
         <p className="mt-2 text-sm leading-relaxed text-foreground/85">{place.description}</p>
       </section>
 
+      {/* More About This Place */}
+      <section className="mt-5 px-5">
+        <Link
+          to="/place/$id/details"
+          params={{ id: place.id }}
+          className="group relative flex items-center gap-3 overflow-hidden rounded-2xl border border-border/70 p-4 shadow-[var(--shadow-card)] transition active:scale-[0.99]"
+          style={{
+            background:
+              "linear-gradient(120deg, oklch(0.22 0.05 265) 0%, oklch(0.28 0.06 265) 60%, oklch(0.32 0.07 265) 100%)",
+          }}
+        >
+          <span
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-white/10 backdrop-blur-md"
+            style={{ color: "oklch(0.82 0.14 85)" }}
+          >
+            📄
+          </span>
+          <div className="min-w-0 flex-1">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: "oklch(0.82 0.14 85)" }}>
+              Premium details
+            </p>
+            <p className="mt-0.5 font-display text-[15px] font-semibold text-white">More About This Place</p>
+            <p className="mt-0.5 text-xs text-white/70">Timings, facilities, tips, nearby & more</p>
+          </div>
+          <ChevronRight className="h-5 w-5 text-white/70 transition group-hover:translate-x-0.5" />
+        </Link>
+      </section>
+
+
+
       {/* Photos */}
       <section className="mt-6">
         <h2 className="px-5 font-display text-lg font-semibold">Photos</h2>

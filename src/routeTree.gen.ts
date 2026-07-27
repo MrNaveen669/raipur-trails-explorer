@@ -22,6 +22,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as PlaceIdRouteImport } from './routes/place.$id'
 import { Route as DirectionsIdRouteImport } from './routes/directions.$id'
 import { Route as CategorySlugRouteImport } from './routes/category.$slug'
+import { Route as PlaceIdDetailsRouteImport } from './routes/place.$id.details'
 
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
@@ -88,6 +89,11 @@ const CategorySlugRoute = CategorySlugRouteImport.update({
   path: '/category/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PlaceIdDetailsRoute = PlaceIdDetailsRouteImport.update({
+  id: '/details',
+  path: '/details',
+  getParentRoute: () => PlaceIdRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -102,7 +108,8 @@ export interface FileRoutesByFullPath {
   '/settings': typeof SettingsRoute
   '/category/$slug': typeof CategorySlugRoute
   '/directions/$id': typeof DirectionsIdRoute
-  '/place/$id': typeof PlaceIdRoute
+  '/place/$id': typeof PlaceIdRouteWithChildren
+  '/place/$id/details': typeof PlaceIdDetailsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -117,7 +124,8 @@ export interface FileRoutesByTo {
   '/settings': typeof SettingsRoute
   '/category/$slug': typeof CategorySlugRoute
   '/directions/$id': typeof DirectionsIdRoute
-  '/place/$id': typeof PlaceIdRoute
+  '/place/$id': typeof PlaceIdRouteWithChildren
+  '/place/$id/details': typeof PlaceIdDetailsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -133,7 +141,8 @@ export interface FileRoutesById {
   '/settings': typeof SettingsRoute
   '/category/$slug': typeof CategorySlugRoute
   '/directions/$id': typeof DirectionsIdRoute
-  '/place/$id': typeof PlaceIdRoute
+  '/place/$id': typeof PlaceIdRouteWithChildren
+  '/place/$id/details': typeof PlaceIdDetailsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -151,6 +160,7 @@ export interface FileRouteTypes {
     | '/category/$slug'
     | '/directions/$id'
     | '/place/$id'
+    | '/place/$id/details'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -166,6 +176,7 @@ export interface FileRouteTypes {
     | '/category/$slug'
     | '/directions/$id'
     | '/place/$id'
+    | '/place/$id/details'
   id:
     | '__root__'
     | '/'
@@ -181,6 +192,7 @@ export interface FileRouteTypes {
     | '/category/$slug'
     | '/directions/$id'
     | '/place/$id'
+    | '/place/$id/details'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -196,7 +208,7 @@ export interface RootRouteChildren {
   SettingsRoute: typeof SettingsRoute
   CategorySlugRoute: typeof CategorySlugRoute
   DirectionsIdRoute: typeof DirectionsIdRoute
-  PlaceIdRoute: typeof PlaceIdRoute
+  PlaceIdRoute: typeof PlaceIdRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -292,8 +304,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CategorySlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/place/$id/details': {
+      id: '/place/$id/details'
+      path: '/details'
+      fullPath: '/place/$id/details'
+      preLoaderRoute: typeof PlaceIdDetailsRouteImport
+      parentRoute: typeof PlaceIdRoute
+    }
   }
 }
+
+interface PlaceIdRouteChildren {
+  PlaceIdDetailsRoute: typeof PlaceIdDetailsRoute
+}
+
+const PlaceIdRouteChildren: PlaceIdRouteChildren = {
+  PlaceIdDetailsRoute: PlaceIdDetailsRoute,
+}
+
+const PlaceIdRouteWithChildren =
+  PlaceIdRoute._addFileChildren(PlaceIdRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -308,18 +338,8 @@ const rootRouteChildren: RootRouteChildren = {
   SettingsRoute: SettingsRoute,
   CategorySlugRoute: CategorySlugRoute,
   DirectionsIdRoute: DirectionsIdRoute,
-  PlaceIdRoute: PlaceIdRoute,
+  PlaceIdRoute: PlaceIdRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
