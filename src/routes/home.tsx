@@ -27,17 +27,17 @@ function Home() {
   return (
     <MobileShell>
       {/* Header */}
-      <div className="px-4 pt-4">
+      <div className="px-5 pt-5">
         <div className="flex items-start justify-between">
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Current location</p>
-            <div className="mt-0.5 flex items-center gap-1.5">
-              <MapPin className="h-4 w-4 text-accent" />
-              <h1 className="font-display text-xl font-semibold text-ink">Raipur, CG</h1>
+            <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-[color:var(--gold)]">Good evening</p>
+            <div className="mt-1 flex items-center gap-1.5">
+              <MapPin className="h-4 w-4 text-[color:var(--gold)]" strokeWidth={1.7} />
+              <h1 className="font-display text-2xl text-ink">Raipur, CG</h1>
             </div>
           </div>
-          <Link to="/profile" className="flex h-11 w-11 items-center justify-center rounded-full bg-secondary text-foreground" aria-label="Notifications">
-            <Bell className="h-5 w-5" />
+          <Link to="/profile" className="flex h-11 w-11 items-center justify-center rounded-full border border-[color:var(--gold)]/30 bg-[color:var(--surface)]/60 text-[color:var(--gold)] backdrop-blur-md" aria-label="Notifications">
+            <Bell className="h-5 w-5" strokeWidth={1.7} />
           </Link>
         </div>
       </div>

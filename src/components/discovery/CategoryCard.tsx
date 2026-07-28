@@ -9,15 +9,12 @@ export function CategoryChip({ category }: { category: Category }) {
     <Link
       to="/category/$slug"
       params={{ slug: category.slug }}
-      className="flex shrink-0 flex-col items-center gap-1.5"
+      className="flex shrink-0 flex-col items-center gap-2"
     >
-      <span
-        className="flex h-14 w-14 items-center justify-center rounded-2xl text-white shadow-[var(--shadow-card)] transition-transform active:scale-95"
-        style={{ backgroundColor: category.tint }}
-      >
-        <Icon className="h-6 w-6" strokeWidth={2.2} />
+      <span className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[color:var(--gold)]/30 bg-[color:var(--surface)]/70 text-[color:var(--gold)] backdrop-blur-md transition-transform duration-200 active:scale-95">
+        <Icon className="h-6 w-6" strokeWidth={1.6} />
       </span>
-      <span className="text-[11px] font-medium text-foreground">{category.name}</span>
+      <span className="text-[11px] font-medium text-foreground/90">{category.name}</span>
     </Link>
   );
 }
@@ -31,13 +28,10 @@ export function CategoryCard({ category, className }: { category: Category; clas
       className={cn("group relative block h-40 shrink-0 overflow-hidden rounded-3xl", className)}
     >
       <img src={category.cover} alt={category.name} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-active:scale-105" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
       <div className="absolute inset-0 flex flex-col justify-between p-4 text-white">
-        <span
-          className="flex h-10 w-10 items-center justify-center rounded-xl backdrop-blur-md"
-          style={{ backgroundColor: `color-mix(in oklab, ${category.tint} 70%, transparent)` }}
-        >
-          <Icon className="h-5 w-5" strokeWidth={2.2} />
+        <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-[color:var(--gold)]/40 bg-black/40 text-[color:var(--gold)] backdrop-blur-md">
+          <Icon className="h-5 w-5" strokeWidth={1.7} />
         </span>
         <div>
           <h3 className="font-display text-2xl font-semibold leading-tight">{category.name}</h3>
