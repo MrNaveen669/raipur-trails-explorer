@@ -15,6 +15,7 @@ import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as PlannerRouteImport } from './routes/planner'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
+import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as HomeRouteImport } from './routes/home'
 import { Route as FavoritesRouteImport } from './routes/favorites'
 import { Route as ExploreRouteImport } from './routes/explore'
@@ -54,6 +55,11 @@ const PlannerRoute = PlannerRouteImport.update({
 const OnboardingRoute = OnboardingRouteImport.update({
   id: '/onboarding',
   path: '/onboarding',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NotificationsRoute = NotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HomeRoute = HomeRouteImport.update({
@@ -114,6 +120,7 @@ export interface FileRoutesByFullPath {
   '/explore': typeof ExploreRoute
   '/favorites': typeof FavoritesRoute
   '/home': typeof HomeRoute
+  '/notifications': typeof NotificationsRoute
   '/onboarding': typeof OnboardingRoute
   '/planner': typeof PlannerRoute
   '/profile': typeof ProfileRoute
@@ -132,6 +139,7 @@ export interface FileRoutesByTo {
   '/explore': typeof ExploreRoute
   '/favorites': typeof FavoritesRoute
   '/home': typeof HomeRoute
+  '/notifications': typeof NotificationsRoute
   '/onboarding': typeof OnboardingRoute
   '/planner': typeof PlannerRoute
   '/profile': typeof ProfileRoute
@@ -151,6 +159,7 @@ export interface FileRoutesById {
   '/explore': typeof ExploreRoute
   '/favorites': typeof FavoritesRoute
   '/home': typeof HomeRoute
+  '/notifications': typeof NotificationsRoute
   '/onboarding': typeof OnboardingRoute
   '/planner': typeof PlannerRoute
   '/profile': typeof ProfileRoute
@@ -171,6 +180,7 @@ export interface FileRouteTypes {
     | '/explore'
     | '/favorites'
     | '/home'
+    | '/notifications'
     | '/onboarding'
     | '/planner'
     | '/profile'
@@ -189,6 +199,7 @@ export interface FileRouteTypes {
     | '/explore'
     | '/favorites'
     | '/home'
+    | '/notifications'
     | '/onboarding'
     | '/planner'
     | '/profile'
@@ -207,6 +218,7 @@ export interface FileRouteTypes {
     | '/explore'
     | '/favorites'
     | '/home'
+    | '/notifications'
     | '/onboarding'
     | '/planner'
     | '/profile'
@@ -226,6 +238,7 @@ export interface RootRouteChildren {
   ExploreRoute: typeof ExploreRoute
   FavoritesRoute: typeof FavoritesRoute
   HomeRoute: typeof HomeRoute
+  NotificationsRoute: typeof NotificationsRoute
   OnboardingRoute: typeof OnboardingRoute
   PlannerRoute: typeof PlannerRoute
   ProfileRoute: typeof ProfileRoute
@@ -279,6 +292,13 @@ declare module '@tanstack/react-router' {
       path: '/onboarding'
       fullPath: '/onboarding'
       preLoaderRoute: typeof OnboardingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/notifications': {
+      id: '/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof NotificationsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/home': {
@@ -372,6 +392,7 @@ const rootRouteChildren: RootRouteChildren = {
   ExploreRoute: ExploreRoute,
   FavoritesRoute: FavoritesRoute,
   HomeRoute: HomeRoute,
+  NotificationsRoute: NotificationsRoute,
   OnboardingRoute: OnboardingRoute,
   PlannerRoute: PlannerRoute,
   ProfileRoute: ProfileRoute,
