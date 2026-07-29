@@ -55,7 +55,6 @@ export function FeaturedCities() {
       <div className="mt-4 px-4">
         <Link
           to="/explore"
-          search={{ city: active.name }}
           className="relative block h-56 overflow-hidden rounded-3xl shadow-[var(--shadow-hero)]"
           aria-label={`Explore ${active.name}`}
         >

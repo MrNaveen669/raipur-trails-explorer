@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Bell, MapPin } from "lucide-react";
 import { MobileShell } from "@/components/layout/MobileShell";
+import { FeaturedCities } from "@/components/discovery/FeaturedCities";
 import { SearchBar } from "@/components/discovery/SearchBar";
 import { CategoryChip, CategoryCard } from "@/components/discovery/CategoryCard";
 import { PlaceCard } from "@/components/discovery/PlaceCard";
@@ -9,7 +9,6 @@ import { SectionHeader, Rail } from "@/components/discovery/SectionHeader";
 import { categories } from "@/data/categories";
 import { featured, hiddenGems, placesByCategory, trending, weekendPicks } from "@/data/places";
 import { events } from "@/data/reviews";
-import heroImg from "@/assets/hero-raipur.jpg";
 
 export const Route = createFileRoute("/home")({
   head: () => ({
@@ -26,34 +25,7 @@ export const Route = createFileRoute("/home")({
 function Home() {
   return (
     <MobileShell>
-      {/* Header */}
-      <div className="px-5 pt-5">
-        <div className="flex items-start justify-between">
-          <div>
-            <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-[color:var(--gold)]">Good evening</p>
-            <div className="mt-1 flex items-center gap-1.5">
-              <MapPin className="h-4 w-4 text-[color:var(--gold)]" strokeWidth={1.7} />
-              <h1 className="font-display text-2xl text-ink">Raipur, CG</h1>
-            </div>
-          </div>
-          <Link to="/profile" className="flex h-11 w-11 items-center justify-center rounded-full border border-[color:var(--gold)]/30 bg-[color:var(--surface)]/60 text-[color:var(--gold)] backdrop-blur-md" aria-label="Notifications">
-            <Bell className="h-5 w-5" strokeWidth={1.7} />
-          </Link>
-        </div>
-      </div>
-
-      {/* Hero card */}
-      <div className="mt-4 px-4">
-        <Link to="/place/$id" params={{ id: "temples-mahamaya" }} className="relative block h-56 overflow-hidden rounded-3xl shadow-[var(--shadow-hero)]">
-          <img src={heroImg} alt="Mahamaya Temple at dawn" width={1200} height={1600} className="absolute inset-0 h-full w-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent" />
-          <div className="absolute inset-x-0 bottom-0 p-5 text-white">
-            <p className="text-[11px] font-semibold uppercase tracking-widest text-white/80">Editor's pick</p>
-            <h2 className="mt-1 font-display text-2xl font-semibold leading-tight">Sunrise at Mahamaya Temple</h2>
-            <p className="mt-1 text-xs text-white/85">2.4 km · Historic Shakti Peeth</p>
-          </div>
-        </Link>
-      </div>
+      <FeaturedCities />
 
       {/* Search */}
       <div className="mt-4 px-4">
