@@ -42,12 +42,17 @@ export function FeaturedCities() {
             </div>
           </div>
           <Link
-            to="/profile"
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-[color:var(--gold)]/30 bg-[color:var(--surface)]/60 text-[color:var(--gold)] backdrop-blur-md"
-            aria-label="Notifications"
+            to="/notifications"
+            className="relative flex h-11 w-11 items-center justify-center rounded-full border border-[color:var(--gold)]/30 bg-[color:var(--surface)]/60 text-[color:var(--gold)] backdrop-blur-md"
+            aria-label="Notifications, 3 new"
           >
             <Bell className="h-5 w-5" strokeWidth={1.7} />
+            <span className="absolute -right-0.5 -top-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-destructive px-1 text-[10px] font-semibold text-destructive-foreground shadow-[0_0_0_2px_var(--background)]">
+              +3
+            </span>
+            <span className="pointer-events-none absolute -right-0.5 -top-0.5 h-5 w-5 animate-pulse-ring rounded-full bg-destructive" />
           </Link>
+
         </div>
       </div>
 
