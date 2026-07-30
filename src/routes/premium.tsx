@@ -2,7 +2,7 @@ import { createFileRoute, useRouter } from "@tanstack/react-router";
 import { useState } from "react";
 import { Crown, Check, ChevronLeft, Loader2, BadgeCheck } from "lucide-react";
 import { MobileShell } from "@/components/layout/MobileShell";
-import { usePremium } from "@/lib/premium";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/premium")({
   head: () => ({
@@ -35,18 +35,16 @@ type Stage = "idle" | "loading" | "success";
 
 function Premium() {
   const router = useRouter();
-  const { activate } = usePremium();
   const [stage, setStage] = useState<Stage>("idle");
 
   const buy = () => {
     setStage("loading");
     setTimeout(() => {
-      activate();
       setStage("success");
     }, 2000);
   };
 
-  if (stage === "success") return <SuccessView onContinue={() => router.navigate({ to: "/profile" })} />;
+  if (stage === "success") return <SuccessView onContinue={() => { toast.success("Premium purchase simulated successfully."); router.navigate({ to: "/profile" }); }} />;
 
   return (
     <MobileShell showNav={false}>

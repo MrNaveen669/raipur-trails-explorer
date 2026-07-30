@@ -1,8 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Bookmark, Star, Crown, Settings, HelpCircle, ChevronRight, MapPin, Sparkles, BadgeCheck } from "lucide-react";
+import { Bookmark, Star, Crown, Settings, HelpCircle, ChevronRight, MapPin, Sparkles } from "lucide-react";
 import { MobileShell } from "@/components/layout/MobileShell";
 import { useFavorites } from "@/lib/favorites";
-import { usePremium } from "@/lib/premium";
 import { myReviews } from "@/data/reviews";
 
 export const Route = createFileRoute("/profile")({
@@ -12,7 +11,6 @@ export const Route = createFileRoute("/profile")({
 
 function Profile() {
   const { count } = useFavorites();
-  const { isPremium } = usePremium();
   return (
     <MobileShell>
       {/* Header card */}
