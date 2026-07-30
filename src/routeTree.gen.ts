@@ -13,6 +13,7 @@ import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as PremiumRouteImport } from './routes/premium'
 import { Route as PlannerRouteImport } from './routes/planner'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as NotificationsRouteImport } from './routes/notifications'
@@ -45,6 +46,11 @@ const ReviewsRoute = ReviewsRouteImport.update({
 const ProfileRoute = ProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PremiumRoute = PremiumRouteImport.update({
+  id: '/premium',
+  path: '/premium',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PlannerRoute = PlannerRouteImport.update({
@@ -123,6 +129,7 @@ export interface FileRoutesByFullPath {
   '/notifications': typeof NotificationsRoute
   '/onboarding': typeof OnboardingRoute
   '/planner': typeof PlannerRoute
+  '/premium': typeof PremiumRoute
   '/profile': typeof ProfileRoute
   '/reviews': typeof ReviewsRoute
   '/search': typeof SearchRoute
@@ -142,6 +149,7 @@ export interface FileRoutesByTo {
   '/notifications': typeof NotificationsRoute
   '/onboarding': typeof OnboardingRoute
   '/planner': typeof PlannerRoute
+  '/premium': typeof PremiumRoute
   '/profile': typeof ProfileRoute
   '/reviews': typeof ReviewsRoute
   '/search': typeof SearchRoute
@@ -162,6 +170,7 @@ export interface FileRoutesById {
   '/notifications': typeof NotificationsRoute
   '/onboarding': typeof OnboardingRoute
   '/planner': typeof PlannerRoute
+  '/premium': typeof PremiumRoute
   '/profile': typeof ProfileRoute
   '/reviews': typeof ReviewsRoute
   '/search': typeof SearchRoute
@@ -183,6 +192,7 @@ export interface FileRouteTypes {
     | '/notifications'
     | '/onboarding'
     | '/planner'
+    | '/premium'
     | '/profile'
     | '/reviews'
     | '/search'
@@ -202,6 +212,7 @@ export interface FileRouteTypes {
     | '/notifications'
     | '/onboarding'
     | '/planner'
+    | '/premium'
     | '/profile'
     | '/reviews'
     | '/search'
@@ -221,6 +232,7 @@ export interface FileRouteTypes {
     | '/notifications'
     | '/onboarding'
     | '/planner'
+    | '/premium'
     | '/profile'
     | '/reviews'
     | '/search'
@@ -241,6 +253,7 @@ export interface RootRouteChildren {
   NotificationsRoute: typeof NotificationsRoute
   OnboardingRoute: typeof OnboardingRoute
   PlannerRoute: typeof PlannerRoute
+  PremiumRoute: typeof PremiumRoute
   ProfileRoute: typeof ProfileRoute
   ReviewsRoute: typeof ReviewsRoute
   SearchRoute: typeof SearchRoute
@@ -278,6 +291,13 @@ declare module '@tanstack/react-router' {
       path: '/profile'
       fullPath: '/profile'
       preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/premium': {
+      id: '/premium'
+      path: '/premium'
+      fullPath: '/premium'
+      preLoaderRoute: typeof PremiumRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/planner': {
@@ -395,6 +415,7 @@ const rootRouteChildren: RootRouteChildren = {
   NotificationsRoute: NotificationsRoute,
   OnboardingRoute: OnboardingRoute,
   PlannerRoute: PlannerRoute,
+  PremiumRoute: PremiumRoute,
   ProfileRoute: ProfileRoute,
   ReviewsRoute: ReviewsRoute,
   SearchRoute: SearchRoute,
@@ -406,13 +427,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
