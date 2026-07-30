@@ -12,6 +12,7 @@ export const Route = createFileRoute("/profile")({
 
 function Profile() {
   const { count } = useFavorites();
+  const { isPremium } = usePremium();
   return (
     <MobileShell>
       {/* Header card */}
