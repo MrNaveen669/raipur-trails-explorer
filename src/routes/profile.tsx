@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Bookmark, Star, Crown, Settings, HelpCircle, ChevronRight, MapPin, Sparkles } from "lucide-react";
+import { Bookmark, Star, Crown, Settings, HelpCircle, ChevronRight, MapPin, Sparkles, BadgeCheck } from "lucide-react";
 import { MobileShell } from "@/components/layout/MobileShell";
 import { useFavorites } from "@/lib/favorites";
+import { usePremium } from "@/lib/premium";
 import { myReviews } from "@/data/reviews";
 
 export const Route = createFileRoute("/profile")({
@@ -11,6 +12,7 @@ export const Route = createFileRoute("/profile")({
 
 function Profile() {
   const { count } = useFavorites();
+  const { isPremium } = usePremium();
   return (
     <MobileShell>
       {/* Header card */}
@@ -37,19 +39,52 @@ function Profile() {
         </div>
       </div>
 
-      {/* Premium CTA */}
-      <div className="mx-4 -mt-4 rounded-3xl border border-gold/40 bg-card p-4 shadow-[var(--shadow-card)]">
-        <div className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gold/15 text-gold">
-            <Crown className="h-5 w-5" />
+      {/* Premium CTA / Member card */}
+      {isPremium ? (
+        <div className="mx-4 -mt-4 rounded-3xl p-4 glass-card gold-border animate-slide-up-fade">
+          <div className="flex items-center gap-3">
+            <div
+              className="flex h-11 w-11 items-center justify-center rounded-2xl"
+              style={{ background: "linear-gradient(140deg, oklch(0.86 0.14 88), oklch(0.66 0.13 78))" }}
+            >
+              <Crown className="h-5 w-5 text-primary-foreground" strokeWidth={1.7} />
+            </div>
+            <div className="flex-1">
+              <p className="flex items-center gap-1.5 text-sm font-semibold">
+                👑 Premium Member
+                <BadgeCheck className="h-4 w-4 text-gold" strokeWidth={1.8} />
+              </p>
+              <p className="text-xs text-muted-foreground">Status: Active</p>
+            </div>
           </div>
-          <div className="flex-1">
-            <p className="text-sm font-semibold">Go Premium</p>
-            <p className="text-xs text-muted-foreground">Offline maps, no ads, exclusive itineraries.</p>
+          <div className="mt-4 grid grid-cols-2 gap-3">
+            <div className="rounded-2xl bg-white/5 p-3">
+              <p className="text-[11px] uppercase tracking-wider text-muted-foreground">Plan</p>
+              <p className="mt-0.5 text-sm font-semibold text-gold">My City Premium</p>
+            </div>
+            <div className="rounded-2xl bg-white/5 p-3">
+              <p className="text-[11px] uppercase tracking-wider text-muted-foreground">Renewal</p>
+              <p className="mt-0.5 text-sm font-semibold">30 Days Remaining</p>
+            </div>
           </div>
-          <button className="rounded-full bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground">Upgrade</button>
         </div>
-      </div>
+      ) : (
+        <div className="mx-4 -mt-4 rounded-3xl border border-gold/40 bg-card p-4 shadow-[var(--shadow-card)]">
+          <div className="flex items-center gap-3">
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gold/15 text-gold">
+              <Crown className="h-5 w-5" />
+            </div>
+            <div className="flex-1">
+              <p className="text-sm font-semibold">Go Premium</p>
+              <p className="text-xs text-muted-foreground">Offline maps, no ads, exclusive itineraries.</p>
+            </div>
+            <Link to="/premium" className="rounded-full bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground">
+              Upgrade
+            </Link>
+          </div>
+        </div>
+      )}
+
 
       {/* Menu */}
       <div className="mt-6 space-y-2 px-4">
