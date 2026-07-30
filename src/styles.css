@@ -224,3 +224,24 @@
   background-size: 200% 100%;
   animation: gold-sheen 3.5s ease-in-out infinite;
 }
+
+@keyframes confetti-fall {
+  0% { transform: translate3d(0, -10vh, 0) rotate(0deg); opacity: 0; }
+  10% { opacity: 1; }
+  100% { transform: translate3d(0, 110vh, 0) rotate(720deg); opacity: 0; }
+}
+@utility animate-confetti { animation: confetti-fall linear infinite; }
+
+@keyframes check-pop {
+  0% { transform: scale(0.2); opacity: 0; }
+  60% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@utility animate-check-pop { animation: check-pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+
+@keyframes scale-in-soft {
+  from { transform: scale(0.7); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+@utility animate-scale-in { animation: scale-in-soft 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+
