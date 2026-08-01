@@ -1,10 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Bookmark, Star, Crown, Settings, HelpCircle, ChevronRight, MapPin, Sparkles, BadgeCheck, RefreshCw, RotateCcw, Gem } from "lucide-react";
+import { useState, useRef } from "react";
+import { Bookmark, Star, Crown, Settings, HelpCircle, ChevronRight, MapPin, Sparkles, BadgeCheck, RefreshCw, RotateCcw, Gem, Camera, Trash2, X } from "lucide-react";
 import { MobileShell } from "@/components/layout/MobileShell";
 import { useFavorites } from "@/lib/favorites";
 import { usePremium } from "@/lib/premium";
 import { toast } from "sonner";
 import { myReviews } from "@/data/reviews";
+import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
+import { cn } from "@/lib/utils";
+import avatarAsset from "@/assets/profile-avatar.jpg.asset.json";
+
 
 
 export const Route = createFileRoute("/profile")({
@@ -22,16 +27,13 @@ function Profile() {
         <div className="absolute inset-0 h-48" style={{ background: "linear-gradient(140deg, oklch(0.36 0.06 155), oklch(0.28 0.05 155))" }} />
         <div className="relative px-5 pt-8 pb-6 text-primary-foreground">
           <div className="flex items-center gap-4">
-            <img
-              src="https://api.dicebear.com/9.x/initials/svg?seed=Ananya&backgroundColor=e85d3a&textColor=ffffff"
-              alt=""
-              className="h-16 w-16 rounded-2xl bg-white/20 shadow-lg ring-4 ring-white/20"
-            />
+            <ProfileAvatar />
             <div>
               <h1 className="font-display text-2xl font-semibold">Ananya Sharma</h1>
               <p className="flex items-center gap-1 text-xs text-white/85"><MapPin className="h-3.5 w-3.5" /> Raipur, CG</p>
             </div>
           </div>
+
 
           <div className="mt-6 grid grid-cols-3 gap-3">
             <Stat n={count} label="Saved" />
@@ -150,3 +152,110 @@ function Row({ to, Icon, label, hint }: { to: "/favorites" | "/reviews" | "/sett
     </Link>
   );
 }
+
+function ProfileAvatar() {
+  const [open, setOpen] = useState(false);
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const url = URL.createObjectURL(file);
+    setAvatarUrl(url);
+    setOpen(false);
+    toast.success("Profile photo updated");
+  };
+
+  const handleRemove = () => {
+    setAvatarUrl(null);
+    setOpen(false);
+    toast("Profile photo removed");
+  };
+
+  return (
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetTrigger asChild>
+        <button
+          type="button"
+          aria-label="Change profile photo"
+          className="group relative shrink-0 rounded-full outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 focus:ring-offset-background"
+        >
+          <img
+            src={avatarUrl || avatarAsset.url}
+            alt="Ananya Sharma"
+            className="h-11 w-11 rounded-full border-2 border-gold object-cover shadow-lg transition-transform duration-200 active:scale-95"
+            loading="lazy"
+          />
+          <span className="absolute inset-0 rounded-full bg-black/0 transition-colors group-hover:bg-black/15" />
+        </button>
+      </SheetTrigger>
+      <SheetContent
+        side="bottom"
+        className="glass-card rounded-t-3xl border-t border-gold px-4 pb-8 pt-6 [&>button]:hidden"
+      >
+        <SheetHeader className="mb-5">
+          <SheetTitle className="font-display text-center text-lg">Profile Photo</SheetTitle>
+          <SheetDescription className="text-center text-xs text-muted-foreground">
+            Manage your profile photo
+          </SheetDescription>
+        </SheetHeader>
+        <div className="space-y-3">
+          <PhotoOptionButton
+            icon={Camera}
+            label="Change Profile Photo"
+            onClick={() => fileInputRef.current?.click()}
+          />
+          <PhotoOptionButton
+            icon={Trash2}
+            label="Remove Photo"
+            variant="danger"
+            onClick={handleRemove}
+          />
+          <PhotoOptionButton
+            icon={X}
+            label="Cancel"
+            onClick={() => setOpen(false)}
+          />
+        </div>
+        <input
+          type="file"
+          accept="image/*"
+          className="hidden"
+          ref={fileInputRef}
+          onChange={handleFileChange}
+        />
+      </SheetContent>
+    </Sheet>
+  );
+}
+
+function PhotoOptionButton({
+  icon: Icon,
+  label,
+  onClick,
+  variant,
+}: {
+  icon: typeof Camera;
+  label: string;
+  onClick: () => void;
+  variant?: "danger";
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={cn(
+        "flex w-full items-center gap-3 rounded-2xl bg-secondary p-4 text-left transition-transform duration-200 active:scale-[0.97]",
+        variant === "danger" && "text-destructive"
+      )}
+    >
+      <Icon
+        className={cn("h-5 w-5 shrink-0", variant === "danger" ? "text-destructive" : "text-gold")}
+        strokeWidth={1.6}
+      />
+      <span className="flex-1 text-sm font-semibold">{label}</span>
+    </button>
+  );
+}
+
