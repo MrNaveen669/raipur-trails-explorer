@@ -27,16 +27,13 @@ function Profile() {
         <div className="absolute inset-0 h-48" style={{ background: "linear-gradient(140deg, oklch(0.36 0.06 155), oklch(0.28 0.05 155))" }} />
         <div className="relative px-5 pt-8 pb-6 text-primary-foreground">
           <div className="flex items-center gap-4">
-            <img
-              src="https://api.dicebear.com/9.x/initials/svg?seed=Ananya&backgroundColor=e85d3a&textColor=ffffff"
-              alt=""
-              className="h-16 w-16 rounded-2xl bg-white/20 shadow-lg ring-4 ring-white/20"
-            />
+            <ProfileAvatar />
             <div>
               <h1 className="font-display text-2xl font-semibold">Ananya Sharma</h1>
               <p className="flex items-center gap-1 text-xs text-white/85"><MapPin className="h-3.5 w-3.5" /> Raipur, CG</p>
             </div>
           </div>
+
 
           <div className="mt-6 grid grid-cols-3 gap-3">
             <Stat n={count} label="Saved" />
