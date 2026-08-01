@@ -1,10 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Bookmark, Star, Crown, Settings, HelpCircle, ChevronRight, MapPin, Sparkles, BadgeCheck, RefreshCw, RotateCcw, Gem } from "lucide-react";
+import { useState, useRef } from "react";
+import { Bookmark, Star, Crown, Settings, HelpCircle, ChevronRight, MapPin, Sparkles, BadgeCheck, RefreshCw, RotateCcw, Gem, Camera, Trash2, X } from "lucide-react";
 import { MobileShell } from "@/components/layout/MobileShell";
 import { useFavorites } from "@/lib/favorites";
 import { usePremium } from "@/lib/premium";
 import { toast } from "sonner";
 import { myReviews } from "@/data/reviews";
+import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
+import { cn } from "@/lib/utils";
+import avatarAsset from "@/assets/profile-avatar.jpg.asset.json";
+
 
 
 export const Route = createFileRoute("/profile")({
