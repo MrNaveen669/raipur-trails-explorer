@@ -125,6 +125,19 @@ function Stat({ n, label }: { n: number; label: string }) {
   );
 }
 
+function PremiumAction({ Icon, label, onClick, to }: { Icon: typeof Bookmark; label: string; onClick?: () => void; to?: "/premium" }) {
+  const cls =
+    "flex items-center gap-2 rounded-2xl bg-gold/10 px-3 py-2.5 text-left text-[11px] font-semibold transition-transform duration-200 active:scale-[0.97] gold-border";
+  const inner = (
+    <>
+      <Icon className="h-4 w-4 shrink-0 text-gold" strokeWidth={1.8} />
+      <span className="flex-1 leading-tight">{label}</span>
+    </>
+  );
+  if (to) return <Link to={to} className={cls}>{inner}</Link>;
+  return <button onClick={onClick} className={cls}>{inner}</button>;
+}
+
 function Row({ to, Icon, label, hint }: { to: "/favorites" | "/reviews" | "/settings"; Icon: typeof Bookmark; label: string; hint?: string }) {
   return (
     <Link to={to} className="flex items-center gap-3 rounded-2xl bg-card p-3 shadow-[var(--shadow-card)]">
