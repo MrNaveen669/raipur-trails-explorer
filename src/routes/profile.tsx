@@ -152,3 +152,110 @@ function Row({ to, Icon, label, hint }: { to: "/favorites" | "/reviews" | "/sett
     </Link>
   );
 }
+
+function ProfileAvatar() {
+  const [open, setOpen] = useState(false);
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const url = URL.createObjectURL(file);
+    setAvatarUrl(url);
+    setOpen(false);
+    toast.success("Profile photo updated");
+  };
+
+  const handleRemove = () => {
+    setAvatarUrl(null);
+    setOpen(false);
+    toast("Profile photo removed");
+  };
+
+  return (
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetTrigger asChild>
+        <button
+          type="button"
+          aria-label="Change profile photo"
+          className="group relative shrink-0 rounded-full outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 focus:ring-offset-background"
+        >
+          <img
+            src={avatarUrl || avatarAsset.url}
+            alt="Ananya Sharma"
+            className="h-11 w-11 rounded-full border-2 border-gold object-cover shadow-lg transition-transform duration-200 active:scale-95"
+            loading="lazy"
+          />
+          <span className="absolute inset-0 rounded-full bg-black/0 transition-colors group-hover:bg-black/15" />
+        </button>
+      </SheetTrigger>
+      <SheetContent
+        side="bottom"
+        className="glass-card rounded-t-3xl border-t border-gold px-4 pb-8 pt-6 [&>button]:hidden"
+      >
+        <SheetHeader className="mb-5">
+          <SheetTitle className="font-display text-center text-lg">Profile Photo</SheetTitle>
+          <SheetDescription className="text-center text-xs text-muted-foreground">
+            Manage your profile photo
+          </SheetDescription>
+        </SheetHeader>
+        <div className="space-y-3">
+          <PhotoOptionButton
+            icon={Camera}
+            label="Change Profile Photo"
+            onClick={() => fileInputRef.current?.click()}
+          />
+          <PhotoOptionButton
+            icon={Trash2}
+            label="Remove Photo"
+            variant="danger"
+            onClick={handleRemove}
+          />
+          <PhotoOptionButton
+            icon={X}
+            label="Cancel"
+            onClick={() => setOpen(false)}
+          />
+        </div>
+        <input
+          type="file"
+          accept="image/*"
+          className="hidden"
+          ref={fileInputRef}
+          onChange={handleFileChange}
+        />
+      </SheetContent>
+    </Sheet>
+  );
+}
+
+function PhotoOptionButton({
+  icon: Icon,
+  label,
+  onClick,
+  variant,
+}: {
+  icon: typeof Camera;
+  label: string;
+  onClick: () => void;
+  variant?: "danger";
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={cn(
+        "flex w-full items-center gap-3 rounded-2xl bg-secondary p-4 text-left transition-transform duration-200 active:scale-[0.97]",
+        variant === "danger" && "text-destructive"
+      )}
+    >
+      <Icon
+        className={cn("h-5 w-5 shrink-0", variant === "danger" ? "text-destructive" : "text-gold")}
+        strokeWidth={1.6}
+      />
+      <span className="flex-1 text-sm font-semibold">{label}</span>
+    </button>
+  );
+}
+
