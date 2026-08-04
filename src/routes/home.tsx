@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { MobileShell } from "@/components/layout/MobileShell";
-import { FeaturedCities } from "@/components/discovery/FeaturedCities";
+import { HeroBanner } from "@/components/discovery/HeroBanner";
 import { SearchBar } from "@/components/discovery/SearchBar";
 import { CategoryChip, CategoryCard } from "@/components/discovery/CategoryCard";
 import { PlaceCard } from "@/components/discovery/PlaceCard";
@@ -25,7 +25,7 @@ export const Route = createFileRoute("/home")({
 function Home() {
   return (
     <MobileShell>
-      <FeaturedCities />
+      <HeroBanner />
 
       {/* Search */}
       <div className="mt-4 px-4">
